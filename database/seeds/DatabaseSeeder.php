@@ -11,6 +11,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // Create 10 records of customers
+        factory(App\Models\Person::class, 10)->create()->each(function ($person) {
+            // Seed the relation with one address
+            $address = factory(App\Models\Address::class)->make();
+            $person->address()->save($address);
+
+            $contact = factory(App\Models\Contact::class)->make();
+            $person->contact()->save($contact);
+        });
     }
 }

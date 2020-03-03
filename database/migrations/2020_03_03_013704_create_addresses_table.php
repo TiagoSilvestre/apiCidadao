@@ -19,6 +19,7 @@ class CreateAddressesTable extends Migration
             $table->integer('person_id')->unsigned();
             $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
 
+            $table->string('street');
             $table->string('cep');
             $table->string('district');
             $table->string('city');
