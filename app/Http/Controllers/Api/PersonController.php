@@ -12,8 +12,12 @@ use App\Models\Address;
 
 class PersonController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('cpf')) {
+            $person = Person::where('cpf', $request->input('cpf'))->first();
+            return new PersonResource($person);
+        }        
         return new PersonCollection(Person::orderBy('first_name', 'ASC')->paginate());
     }
 
