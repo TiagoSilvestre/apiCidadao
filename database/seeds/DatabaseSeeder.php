@@ -11,9 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Create 10 records of customers
         factory(App\Models\Person::class, 10)->create()->each(function ($person) {
-            // Seed the relation with one address
             $address = factory(App\Models\Address::class)->make();
             $person->address()->save($address);
 

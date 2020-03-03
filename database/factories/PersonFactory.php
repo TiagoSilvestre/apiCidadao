@@ -18,7 +18,7 @@ $factory->define(Person::class, function (Faker $faker) {
 
 $factory->define(Address::class, function (Faker $faker) {
     return [
-        'cep' => substr($faker->postcode, 0, 7),
+        'cep' => substr($faker->postcode, 0, 9),
         'street' => $faker->streetName,
         'district' => $faker->company,
         'city' => $faker->city,

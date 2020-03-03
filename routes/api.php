@@ -27,5 +27,12 @@ Route::namespace('Api')->group(function() {
     */
     Route::resource('/contacts', 'ContactController', ['except' => 'edit']);
     Route::resource('/addresses', 'AddressController', ['except' => 'edit']);
-    Route::resource('/people', 'PersonController', ['except' => 'edit']);
+    // Route::resource('/pessoas', 'PersonController', ['except' => 'edit']);
+
+    Route::get('/pessoas', 'PersonController@index');
+    Route::get('/pessoa/{id}', 'PersonController@show');
+    Route::post('/pessoa', 'PersonController@store');
+    Route::put('/pessoa/{id}', 'PersonController@update');
+    Route::delete('/pessoa/{id}', 'PersonController@destroy');
+
 });
