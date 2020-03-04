@@ -25,8 +25,8 @@ Route::namespace('Api')->group(function() {
     Route::put('/contacts/{id}', 'ContactController@update');
     Route::delete('/contacts/{id}', 'ContactController@destroy');
     */
-    Route::resource('/contacts', 'ContactController', ['except' => 'edit']);
-    Route::resource('/addresses', 'AddressController', ['except' => 'edit']);
+    // Route::resource('/contacts', 'ContactController', ['except' => 'edit']);
+    // Route::resource('/addresses', 'AddressController', ['except' => 'edit']);
     // Route::resource('/pessoas', 'PersonController', ['except' => 'edit']);
 
     Route::get('/pessoas', 'PersonController@index');

@@ -24,7 +24,7 @@ class PersonController extends Controller
 
     public function show($id)
     {
-        $person = Person::findOrFail($id); 
+        $person = Person::findOrFail($id);
         return new PersonResource($person);
     }    
 
