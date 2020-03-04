@@ -15,7 +15,7 @@ class Address extends Model
 
     public function setEndereco($cep)
     {
-        $retornoCorreios = $this->consultaCepCorreios($cep);       
+        $retornoCorreios = $this->consultaCepCorreios($cep); 
         
         $this->cep = $cep;
         $this->street = $retornoCorreios->logradouro;

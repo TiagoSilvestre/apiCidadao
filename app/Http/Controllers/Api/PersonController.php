@@ -9,6 +9,7 @@ use App\Http\Resources\Person as PersonResource;
 use App\Models\Person;
 use App\Models\Contact;
 use App\Models\Address;
+use Validator;
 
 class PersonController extends Controller
 {
@@ -16,6 +17,9 @@ class PersonController extends Controller
     {
         if ($request->has('cpf')) {
             $person = Person::where('cpf', $request->input('cpf'))->first();
+            if(is_null($person)) {
+                return response()->json(["message" => "Pessoa não encontrada"], 404);
+            }
             return new PersonResource($person);
         }        
         return new PersonCollection(Person::orderBy('first_name', 'ASC')->paginate());
@@ -31,6 +35,11 @@ class PersonController extends Controller
 
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), $this->validationRules());
+        if($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
         $person = Person::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -57,6 +66,14 @@ class PersonController extends Controller
     public function update(Request $request, int $id)  
     {
         $person = Person::findOrFail($id);
+        if(is_null($person)) {
+            return response()->json(["message" => "Pessoa não encontrada"], 404);
+        }
+
+        $validator = Validator::make($request->all(), $this->validationRules());
+        if($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
 
         $person->update([
             'first_name' => $request->first_name,
@@ -78,7 +95,6 @@ class PersonController extends Controller
     } 
 
 
-
     public function destroy(int $id)    
     {
         $person = Person::findOrFail($id);
@@ -86,4 +102,18 @@ class PersonController extends Controller
         return response()->json(null, 204);
     }
 
+
+    public function validationRules()    
+    {
+        $rules = [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'cpf' => 'unique:people,cpf',
+            'address.cep' => 'required|digits:8',
+            'contact.phone' => 'required',
+            'contact.email' => 'required|email',
+            'contact.mobile' => 'required'
+        ];    
+        return $rules;
+    }
 }
