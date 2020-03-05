@@ -17,7 +17,7 @@ class PersonController extends Controller
     {
         if ($request->has('cpf')) {
             $person = Person::where('cpf', $request->input('cpf'))->first();
-            if(is_null($person)) {
+            if (is_null($person)) {
                 return response()->json(["message" => "Pessoa não encontrada"], 404);
             }
             return new PersonResource($person);
@@ -36,7 +36,7 @@ class PersonController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), $this->validationRules());
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
 
@@ -66,12 +66,12 @@ class PersonController extends Controller
     public function update(Request $request, int $id)  
     {
         $person = Person::findOrFail($id);
-        if(is_null($person)) {
+        if (is_null($person)) {
             return response()->json(["message" => "Pessoa não encontrada"], 404);
         }
 
-        $validator = Validator::make($request->all(), $this->validationRules());
-        if($validator->fails()) {
+        $validator = Validator::make($request->all(), $this->validationRules('put'));
+        if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
 
@@ -103,7 +103,7 @@ class PersonController extends Controller
     }
 
 
-    public function validationRules()    
+    public function validationRules($method = '')    
     {
         $rules = [
             'first_name' => 'required',
@@ -114,6 +114,9 @@ class PersonController extends Controller
             'contact.email' => 'required|email',
             'contact.mobile' => 'required'
         ];    
+        if ($method == 'put') {
+            unset($rules['cpf']);
+        }        
         return $rules;
     }
 }
