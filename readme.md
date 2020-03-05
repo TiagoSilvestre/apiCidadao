@@ -52,4 +52,6 @@ Você poderá consultar a documentação do swagger nessa url: http://seuVirtual
 
 Para rodar os testes digite no terminal: ./vendor/bin/phpunit tests/Feature/Http/Controllers/Api/PersonControllerTest.php
 
+Caso deseje inserir alguns dados fake para teste digite no terminal: php artisan db:seed
+
 Isso é tudo :)
