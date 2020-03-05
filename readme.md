@@ -1,17 +1,13 @@
 ### Api para cadastro de pessoas em Laravel
 
 Foi desenvolvida uma api para cadastro de pessoas, onde o model Person possui relacionamento 
-com Address e Contact do tipo hasOne(um para um). A api possui um Crud e algumas opções de filtros.
-Foi utilizado o swagger para prover a documentação da Api.
-Também foram criados os testes unitários com o phpUnit.
-A api está rodando em um servidor que eu possuo, você pode consultar aqui:
+com Address e Contact do tipo hasOne(um para um). <br/>
+A api possui um Crud e algumas opções de filtros. Foi utilizado o swagger para prover a documentação da Api.<br/> 
+Também foram criados os testes unitários com o phpUnit. A api está rodando em um servidor que eu possuo, você pode conferir aqui:
 http://www.tiagosilvestre.com.br/api/documentation
 
-- Possui um servidor rodando
-- Alterar o serverName na api-docs
 
-
-##Instalação
+## Instalação
 
 ```bash
 # vá para a pasta do projeto
@@ -49,5 +45,6 @@ roteando para pasta /apiCidadao/public do projeto
         "url": "http://hostDoServidor"
     }
 ```
+Você poderá consultar a documentação do swagger nessa url: http://seuVirtualHost/api/documentation
 
 Isso é tudo :)
