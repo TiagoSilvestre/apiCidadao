@@ -30,9 +30,9 @@ Route::namespace('Api')->group(function() {
     // Route::resource('/pessoas', 'PersonController', ['except' => 'edit']);
 
     Route::get('/pessoas', 'PersonController@index');
-    Route::get('/pessoa/{id}', 'PersonController@show');
-    Route::post('/pessoa', 'PersonController@store');
-    Route::put('/pessoa/{id}', 'PersonController@update');
-    Route::delete('/pessoa/{id}', 'PersonController@destroy');
+    Route::get('/pessoas/{id}', 'PersonController@show');
+    Route::post('/pessoas', 'PersonController@store');
+    Route::put('/pessoas/{id}', 'PersonController@update');
+    Route::delete('/pessoas/{id}', 'PersonController@destroy');
 
 });

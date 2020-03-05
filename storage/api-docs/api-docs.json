@@ -46,9 +46,7 @@
                         "content": {}
                     }
                 }
-            }
-        },
-        "/api/pessoa": {
+            },
             "post": {
                 "tags": [
                     "Pessoas"
@@ -75,7 +73,7 @@
                 "x-codegen-request-body-name": "body"
             }
         },
-        "/api/pessoa/{personId}": {
+        "/api/pessoas/{personId}": {
             "get": {
                 "tags": [
                     "Pessoas"

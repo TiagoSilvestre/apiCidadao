@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use App\Http\Resources\Person as PersonResource;
 
 abstract class TestCase extends BaseTestCase
 {

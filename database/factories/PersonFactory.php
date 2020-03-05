@@ -6,7 +6,7 @@ use App\Models\Person;
 use App\Models\Contact;
 use App\Models\Address;
 use Faker\Generator as Faker;
-
+/*
 $factory->define(Person::class, function (Faker $faker) {
     return [
         'first_name' => $faker->firstName,
@@ -34,3 +34,4 @@ $factory->define(Contact::class, function (Faker $faker) {
         'mobile' => $faker->phoneNumber
     ];
 });
+*/

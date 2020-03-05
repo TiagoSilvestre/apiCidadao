@@ -108,7 +108,7 @@ class PersonController extends Controller
         $rules = [
             'first_name' => 'required',
             'last_name' => 'required',
-            'cpf' => 'unique:people,cpf',
+            'cpf' => 'required|unique:people,cpf',
             'address.cep' => 'required|digits:8',
             'contact.phone' => 'required',
             'contact.email' => 'required|email',
