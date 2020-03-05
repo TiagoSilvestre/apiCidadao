@@ -42,7 +42,7 @@ Caso esteja rodando no xamp, adicione um entrada em httpd-vhost.conf e no arquiv
 roteando para pasta /apiCidadao/public do projeto
 
 # altere o host do servidor da api-doc em: /storage/api-docs/api-docs.json, no começo do
-# arquivo em server->url, colocando o nome do virtual host
+# arquivo em servers->url, colocando o nome do virtual host
 "servers": [
     {
         "url": "http://hostDoServidor"
