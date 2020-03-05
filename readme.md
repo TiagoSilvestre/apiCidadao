@@ -19,6 +19,9 @@ cp .env.example .env
 # instale as dependencias do composer
 composer install
 
+# gere uma chave para a aplicação
+php artisan key:generate
+
 # crie um banco de dados local
 mysql -u root
 
@@ -46,5 +49,7 @@ roteando para pasta /apiCidadao/public do projeto
     }
 ```
 Você poderá consultar a documentação do swagger nessa url: http://seuVirtualHost/api/documentation
+
+Para rodar os testes digite no terminal: ./vendor/bin/phpunit tests/Feature/Http/Controllers/Api/PersonControllerTest.php
 
 Isso é tudo :)
