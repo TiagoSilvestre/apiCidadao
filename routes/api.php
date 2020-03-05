@@ -19,20 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::namespace('Api')->group(function() {
-    /*
-    Route::post('/contacts', 'ContactController@store');
-    Route::get('/contacts/{id}', 'ContactController@show');
-    Route::put('/contacts/{id}', 'ContactController@update');
-    Route::delete('/contacts/{id}', 'ContactController@destroy');
-    */
-    // Route::resource('/contacts', 'ContactController', ['except' => 'edit']);
-    // Route::resource('/addresses', 'AddressController', ['except' => 'edit']);
-    // Route::resource('/pessoas', 'PersonController', ['except' => 'edit']);
-
     Route::get('/pessoas', 'PersonController@index');
     Route::get('/pessoas/{id}', 'PersonController@show');
     Route::post('/pessoas', 'PersonController@store');
     Route::put('/pessoas/{id}', 'PersonController@update');
     Route::delete('/pessoas/{id}', 'PersonController@destroy');
-
 });
