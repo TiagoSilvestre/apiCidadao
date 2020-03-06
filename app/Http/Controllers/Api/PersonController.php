@@ -18,7 +18,7 @@ class PersonController extends Controller
         if ($request->has('cpf')) {
             $person = Person::where('cpf', $request->input('cpf'))->first();
             if (is_null($person)) {
-                return response()->json(["message" => "Pessoa não encontrada"], 404);
+                return response()->json(["message" => "Person not found"], 404);
             }
             return new PersonResource($person);
         }        
@@ -66,9 +66,6 @@ class PersonController extends Controller
     public function update(Request $request, int $id)  
     {
         $person = Person::findOrFail($id);
-        if (is_null($person)) {
-            return response()->json(["message" => "Pessoa não encontrada"], 404);
-        }
 
         $validator = Validator::make($request->all(), $this->validationRules('put'));
         if ($validator->fails()) {
