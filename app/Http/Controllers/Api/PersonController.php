@@ -10,9 +10,30 @@ use App\Models\Person;
 use App\Models\Contact;
 use App\Models\Address;
 use Validator;
+use App\Http\Interfaces\IPersonCreation;
+use App\Http\Interfaces\IPersonUpdate;
+use App\Http\Interfaces\IPersonDelete;
+use App\Http\Interfaces\IPersonFind;
+
 
 class PersonController extends Controller
 {
+    private $personCreation;
+    private $personUpdate;
+    private $personDelete;
+
+    public function __construct(
+        IPersonCreation $personCreation, 
+        IPersonUpdate $personUpdate, 
+        IPersonFind $personFind,
+        IPersonDelete $personDelete
+    ) {
+        $this->personCreation = $personCreation; 
+        $this->personUpdate = $personUpdate;
+        $this->personDelete = $personDelete;
+        $this->personFind = $personFind;
+    }
+
     public function index(Request $request)
     {
         if ($request->has('cpf')) {
@@ -28,7 +49,7 @@ class PersonController extends Controller
 
     public function show($id)
     {
-        $person = Person::findOrFail($id);
+        $person = $this->personFind->execute($id);
         return new PersonResource($person);
     }    
 
@@ -40,24 +61,19 @@ class PersonController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $person = Person::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'cpf' => $request->cpf
-        ]);
+        $person = $this->personCreation->execute($request);
 
-        $contact = Contact::create([
-            'person_id' => $person->id,
-            'phone' => $request->contact['phone'],
-            'email' => $request->contact['email'],
-            'mobile' => $request->contact['mobile']
-        ]);
+        $contact = new Contact();
+        $contact->person_id = $person->id;
+        $contact->phone = $request->contact['phone'];
+        $contact->email = $request->contact['email'];
+        $contact->mobile = $request->contact['mobile'];
+        $contact->save();
 
         $address = new Address();
         $address->person_id = $person->id;
         $address->setEndereco($request->address['cep']);
-        
-        $person->address()->save($address);
+        $address->save();
 
         return new PersonResource($person);
     }
@@ -65,18 +81,12 @@ class PersonController extends Controller
 
     public function update(Request $request, int $id)  
     {
-        $person = Person::findOrFail($id);
-
         $validator = Validator::make($request->all(), $this->validationRules('put'));
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
 
-        $person->update([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'cpf' => $request->cpf      
-        ]);
+        $person = $this->personUpdate->execute($request, $id);
 
         $contact = Contact::where('person_id', $id)->firstOrFail();
         $contact->phone = $request->contact['phone'];
@@ -94,8 +104,7 @@ class PersonController extends Controller
 
     public function destroy(int $id)    
     {
-        $person = Person::findOrFail($id);
-        $person->delete();
+        $this->personDelete->execute($id);
         return response()->json(null, 204);
     }
 
