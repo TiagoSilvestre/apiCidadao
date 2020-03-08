@@ -3,6 +3,7 @@
 Foi desenvolvida uma api para cadastro de pessoas, onde o model Person possui relacionamento 
 com Address e Contact do tipo hasOne(um para um). <br/>
 A api possui um Crud e algumas opções de filtros. Foi utilizado o swagger para prover a documentação da Api.<br/> 
+Apliquei os conceitos do Solid desacoplando o model Person do controller, implementando interfaces e repositoryPattern e também usando injeção de dependências, para poder futuramente, caso necessário, trocar a camada de persistência.
 Também foram criados os testes unitários com o phpUnit. A api está rodando em um servidor que eu possuo, você pode conferir aqui:
 http://www.tiagosilvestre.com.br/api/documentation
 
